@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 3
   tags:
   - Barrel
+  - Barrel_EMBEGEH
+  - Barrel_Normal
   layers:
   - Default
   - TransparentFX
