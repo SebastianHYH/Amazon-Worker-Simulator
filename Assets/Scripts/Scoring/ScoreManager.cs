@@ -21,4 +21,9 @@ public class ScoreManager : MonoBehaviour
     {
         Score++;
     }
+
+    public void RemovePoint()
+    {
+        Score--;
+    }
 }

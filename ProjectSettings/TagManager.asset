@@ -8,6 +8,8 @@ TagManager:
   - Barrel_Normal
   - Barrel_EMBEGEH
   - StashTrigger
+  - TriggerNormal
+  - TriggerMBG
   layers:
   - Default
   - TransparentFX
