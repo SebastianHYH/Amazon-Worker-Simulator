@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - Grabbable
+  - Barrel_Normal
+  - Barrel_EMBEGEH
+  - StashTrigger
   layers:
   - Default
   - TransparentFX
