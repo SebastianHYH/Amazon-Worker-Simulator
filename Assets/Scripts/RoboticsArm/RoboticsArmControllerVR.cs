@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.XR;            // XR controller polling (Meta Quest)
 
 public class RoboticArmControllerVR : MonoBehaviour
@@ -13,7 +14,7 @@ public class RoboticArmControllerVR : MonoBehaviour
     [Tooltip("Hold grip to move the arm; release to reposition your hand freely.")]
     public bool requireClutch = true;
     [Tooltip("1 = 1:1 hand motion. <1 = arm moves less than your hand (good for a large arm).")]
-    public float positionScale = 1f;
+    public float positionScale = 10f;
     [Tooltip("Also match the controller's orientation (so the claw points/rolls like your wrist).")]
     public bool followRotation = true;
     [Tooltip("Source proxy used by wrist's multi-rotation constraint")]
@@ -21,7 +22,11 @@ public class RoboticArmControllerVR : MonoBehaviour
 
     [Header("Reset Arm")]
     [Tooltip("Hold B button for this many seconds to reset arm to its starting pose")]
-    public float resetHoldSeconds = 3f;
+    public float resetHoldSeconds = 2f;
+    [Tooltip("Radial Image on Controller that fills as reset is in progress")]
+    public Image resetFillIndicator;
+    [Tooltip("Optional Container show while holding B. Defaults to fill image's own object")]
+    public GameObject resetIndicatorRoot;
 
     [Header("Wrist Twist Settings")]
     public Transform wristTwistBone; // Assign Bone.006
@@ -30,7 +35,7 @@ public class RoboticArmControllerVR : MonoBehaviour
     [Header("Claw Pinch Settings")]
     public Transform leftClawBone;   // Assign Bone.007
     public Transform rightClawBone;  // Assign Bone.008
-    public float pinchSpeed = 5f;    // Interpolation speed
+    public float pinchSpeed = 10f;    // Interpolation speed
 
     public Vector3 leftClawOpenRotation;
     public Vector3 leftClawClosedRotation;
@@ -200,6 +205,8 @@ public class RoboticArmControllerVR : MonoBehaviour
         if (resetHeld)
         {
             resetHoldTimer += Time.deltaTime;
+            UpdateResetIndicator(Mathf.Clamp01(resetHoldTimer / resetHoldSeconds), true);
+
             if (!resetFired && resetHoldTimer >= resetHoldSeconds)
             {
                 ResetArm();
@@ -210,7 +217,19 @@ public class RoboticArmControllerVR : MonoBehaviour
         {
             resetHoldTimer = 0f;
             resetFired = false;
+            UpdateResetIndicator(0f, false);
         }
+    }
+
+    void UpdateResetIndicator(float progress, bool visible)
+    {
+        GameObject root = resetIndicatorRoot != null ? resetIndicatorRoot
+                        : (resetFillIndicator != null ? resetFillIndicator.gameObject : null);
+        if (root != null && root.activeSelf != visible)
+            root.SetActive(visible);
+
+        if (resetFillIndicator != null)
+            resetFillIndicator.fillAmount = progress;
     }
 
     void ResetArm()
