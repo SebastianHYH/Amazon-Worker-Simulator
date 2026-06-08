@@ -7,6 +7,7 @@ TagManager:
   - Barrel
   - Barrel_EMBEGEH
   - Barrel_Normal
+  - Grabbable
   layers:
   - Default
   - TransparentFX
