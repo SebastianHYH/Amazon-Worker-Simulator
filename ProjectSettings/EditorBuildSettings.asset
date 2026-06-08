@@ -11,10 +11,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/RoboticArmTest.unity
     guid: c448925b10121df4eb343dfaffaa2594
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Main.unity
     guid: 151704ead8b06ff42abd48ea2c6e717f
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MainBackup.unity
     guid: 68173ddc17e07d04b84b643c5c466bbc
   m_configObjects:
