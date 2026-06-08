@@ -140,53 +140,60 @@ public class RoboticArmControllerVR : MonoBehaviour
         }
 
         // --- Keyboard fallback (no headset / editor testing) ---
-        // var keyboard = Keyboard.current;
-        // if (keyboard == null) return;
+        var keyboard = UnityEngine.InputSystem.Keyboard.current;
+        if (keyboard == null) return;
 
-        // Vector3 moveDirection = Vector3.zero;
-        // if (keyboard.upArrowKey.isPressed) moveDirection += Vector3.forward;
-        // if (keyboard.downArrowKey.isPressed) moveDirection += Vector3.back;
-        // if (keyboard.leftArrowKey.isPressed) moveDirection += Vector3.left;
-        // if (keyboard.rightArrowKey.isPressed) moveDirection += Vector3.right;
-        // if (keyboard.pageUpKey.isPressed) moveDirection += Vector3.up;
-        // if (keyboard.pageDownKey.isPressed) moveDirection += Vector3.down;
+        Vector3 moveDirection = Vector3.zero;
+        if (keyboard.upArrowKey.isPressed) moveDirection += Vector3.forward;
+        if (keyboard.downArrowKey.isPressed) moveDirection += Vector3.back;
+        if (keyboard.leftArrowKey.isPressed) moveDirection += Vector3.left;
+        if (keyboard.rightArrowKey.isPressed) moveDirection += Vector3.right;
+        if (keyboard.pageUpKey.isPressed) moveDirection += Vector3.up;
+        if (keyboard.pageDownKey.isPressed) moveDirection += Vector3.down;
 
-        // ikTarget.position += moveDirection.normalized * targetMoveSpeed * Time.deltaTime;
+        ikTarget.position += moveDirection.normalized * targetMoveSpeed * Time.deltaTime;
     }
 
     void HandleWristTwist()
     {
-        // if (wristTwistBone == null) return;
-
-        // When followRotation is on, the IK target's rotation already carries wrist
-        // roll, so we don't drive the twist bone separately in VR.
+        // 1. If VR is active and driving the rotation, skip keyboard fallback entirely
         if (useVRInput && controllerTransform != null && rightHand.isValid && followRotation)
             return;
 
-        // Keyboard Q/E fallback (also used in VR if followRotation is disabled).
-        // var keyboard = Keyboard.current;
-        // if (keyboard == null) return;
-        // if (keyboard.qKey.isPressed)
-            // wristTwistBone.Rotate(Vector3.up * twistSpeed * Time.deltaTime, Space.Self);
-        // else if (keyboard.eKey.isPressed)
-            // wristTwistBone.Rotate(Vector3.down * twistSpeed * Time.deltaTime, Space.Self);
+        // 2. Keyboard Fallback (Only runs if VR isn't actively overriding rotation)
+        var keyboard = UnityEngine.InputSystem.Keyboard.current;
+        if (keyboard == null) return;
+
+        if (keyboard.qKey.isPressed)
+            wristTwistBone.Rotate(Vector3.up * twistSpeed * Time.deltaTime, Space.Self);
+        else if (keyboard.eKey.isPressed)
+            wristTwistBone.Rotate(Vector3.down * twistSpeed * Time.deltaTime, Space.Self);
     }
 
     void HandleClawPinch()
     {
         if (leftClawBone == null || rightClawBone == null) return;
 
-        // Keyboard Space toggles (unchanged).
-        // var keyboard = Keyboard.current;
-        // if (keyboard != null && keyboard.spaceKey.wasPressedThisFrame)
-        // isPinching = !isPinching;
+        // Check if we should use VR input actively
+        if (useVRInput && rightHand.isValid)
+        {
+            // VR Mode: Hold trigger to pinch
+            if (rightHand.TryGetFeatureValue(CommonUsages.triggerButton, out bool triggerHeld))
+            {
+                isPinching = triggerHeld;
+            }
+        }
+        else
+        {
+            // Keyboard Mode: Space bar toggles pinch on/off
+            var keyboard = UnityEngine.InputSystem.Keyboard.current;
+            if (keyboard != null && keyboard.spaceKey.wasPressedThisFrame)
+            {
+                isPinching = !isPinching;
+            }
+        }
 
-        // Trigger toggles the claw, with manual edge detection.
-        bool pinch = false;
-
-        if (useVRInput && rightHand.isValid && rightHand.TryGetFeatureValue(CommonUsages.triggerButton, out bool triggerHeld) && triggerHeld)
-            pinch = true;
-        isPinching = pinch;
+        // Apply smooth visual rotations based on final isPinching state
         Quaternion targetLeft = Quaternion.Euler(isPinching ? leftClawClosedRotation : leftClawOpenRotation);
         Quaternion targetRight = Quaternion.Euler(isPinching ? rightClawClosedRotation : rightClawOpenRotation);
 

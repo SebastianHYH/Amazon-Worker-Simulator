@@ -11,12 +11,12 @@ public class ClawGrabSystem : MonoBehaviour
     private bool wasPinchingLastFrame = false;
 
     // We'll automatically fetch your main controller script to watch the pinch state
-    private RoboticArmController armController;
+    private RoboticArmControllerVR armController;
 
     void Start()
     {
         // Find the main arm controller script on the root object
-        armController = GetComponentInParent<RoboticArmController>();
+        armController = GetComponentInParent<RoboticArmControllerVR>();
         
         // If you don't explicitly assign an attach point, it defaults to this trigger's position
         if (attachPoint == null)

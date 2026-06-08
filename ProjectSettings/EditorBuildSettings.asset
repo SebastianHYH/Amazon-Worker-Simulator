@@ -8,9 +8,15 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/RoboticArmTest.unity
     guid: c448925b10121df4eb343dfaffaa2594
+  - enabled: 0
+    path: Assets/Scenes/Main.unity
+    guid: 151704ead8b06ff42abd48ea2c6e717f
+  - enabled: 1
+    path: Assets/Scenes/MainBackup.unity
+    guid: 68173ddc17e07d04b84b643c5c466bbc
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: d88c8eabdc4745243bf010764327d755, type: 2}
