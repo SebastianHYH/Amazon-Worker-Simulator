@@ -18,7 +18,9 @@ public class StashTrigger : MonoBehaviour
                 ScoreManager.Instance.RemovePoint();
         }
 
-        // Destroy the whole barrel (root object), not just the child trigger node
-        Destroy(other.transform.root.gameObject);
+	Transform barrelRoot = other.transform;
+	while (barrelRoot.parent != null && !barrelRoot.CompareTag("Grabbable"))
+		barrelRoot = barrelRoot.parent;
+	Destroy(barrelRoot.gameObject);
     }
 }
