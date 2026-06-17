@@ -3,7 +3,7 @@
 
 # Amazon Worker Simulator
 
-A Unity VR project simulating a warehouse environment where players operate a robotic arm to manage items on a conveyor belt. Made in collaboration with Agate Academy and ITB's Metaverse Lab. Have a look of the demo video here: [https://youtu.be/N2w5XAgxAs8](https://youtu.be/N2w5XAgxAs8).
+A Unity VR project simulating a warehouse environment where players operate a robotic arm to manage items on a conveyor belt. Made in collaboration with Agate Academy and ITB's Metaverse Lab. Have a look of the demo video here: [https://youtu.be/DCICUapagg4](https://youtu.be/DCICUapagg4).
 
 ## Features
 

@@ -3,7 +3,7 @@
 
 # Amazon Worker Simulator
 
-Proyek Unity yang mensimulasikan lingkungan gudang di mana pemain mengoperasikan lengan robot untuk mengelola barang di ban berjalan. Dibuat dari kolaborasi dengan Agate Academy dan ITB's Metaverse Lab. Mangga silakan lihat video demo di sini: [https://youtu.be/N2w5XAgxAs8](https://youtu.be/N2w5XAgxAs8).
+Proyek Unity yang mensimulasikan lingkungan gudang di mana pemain mengoperasikan lengan robot untuk mengelola barang di ban berjalan. Dibuat dari kolaborasi dengan Agate Academy dan ITB's Metaverse Lab. Mangga silakan lihat video demo di sini: [https://youtu.be/DCICUapagg4](https://youtu.be/DCICUapagg4).
 
 ## Fitur
 
